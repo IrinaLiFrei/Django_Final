@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My web-site{% endblock %}</title>
+</head>
+<body style="background-color: #FFFACD">
+    <header style="display: flex; justify-content: space-between; align-items: center; background-color: #ffa000; color: black; padding: 10px; gap: 30px">
+        <h1>Сайт любимых рецептов</h1>
+        <nav>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 30px">
+                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
+                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'add_recipe' %}">Добавить рецепт</a></button>
+                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Выйти</a></button>
+        </div>
+        </nav>
+    </header>
+    <section style="display: flex; justify-content: flex-start; color: black; padding: 10px; gap: 50px">
+         <div style="min-width: 250px;">
+             <h2>Категории блюд:</h2>
+             <ul style="list-style-type: none">
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Холодные закуски' %}">Холодные закуски</a></li>
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Горячие закуски' %}">Горячие закуски</a></li>
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Первые блюда' %}">Первые блюда</a></li>
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Вторые блюда' %}">Вторые блюда</a></li>
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Кондитерские изделия' %}">Кондитерские изделия</a></li>
+                 <li><a style="text-decoration: none" href="{% url 'categories' 'Прочее' %}">Прочее</a></li>
+             </ul>
+         </div>
+        <div>
+            {% block content %}
+            <p> Скоро тут появится текст...</p>
+            {% endblock %}
+        </div>
+    </section>
+
+
+    <br>
+    <br>
+    <br>
+    <footer style="background-color: #ffa000; color: black; padding: 10px;">
+        <p>&copy; 2024 All rights reserved.</p>
+    </footer>
+</body>
+</html>

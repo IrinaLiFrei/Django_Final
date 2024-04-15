@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}: {% endblock %}
+{% block content %}
+
+<h2> {{ recipe.dish_name}} </h2>
+<p><b>Категория:</b> {{ recipe.category }}</p>
+<p><b>Время приготовления:</b> {{ recipe.cooking_time }} мин.</p>
+<a><img src="{{ recipe.image.url }}" alt="{{ recipe.dish_name }}"></a>
+<h3> {{ recipe.description }} </h3>
+<p><b>Ингредиенты:</b> {{ recipe.ingredients }} </p>
+<p><b>Шаги приготовления:</b> {{ recipe.cooking_steps }} </p>
+<p><b>Автор рецепта:</b> {{ recipe.author }} </p>
+<p><b>Рецепт создан:</b> {{ recipe.created_at }} </p>
+
+{% endblock %}

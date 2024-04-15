@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}: {% endblock %}
+{% block content %}
+<h1>Рецепты любимых блюд</h1>
+{% for recipe in random_recipes %}
+<a href="{% url 'recipe_detail' recipe.id %}"><h2> {{ recipe.dish_name}} </h2></a>
+<p><b>Категория:</b> {{ recipe.category }}</p>
+<p><b>Время приготовления:</b> {{ recipe.cooking_time }} мин.</p>
+<a href="{% url 'recipe_detail' recipe.id %}"><img src="{{ recipe.image.url }}" alt="{{ recipe.dish_name }}" style="max-width: 300px"></a>
+<h3> {{ recipe.description }} </h3><br>
+
+{% endfor %}
+{% endblock %}
