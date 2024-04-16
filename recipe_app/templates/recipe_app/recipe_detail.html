@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}: {% endblock %}
+{% block title %}{{ recipe.dish_name }}: {% endblock %}
 {% block content %}
 
+<p style="color: grey"> {{ message }} </p>
 <h2> {{ recipe.dish_name}} </h2>
 <p><b>Категория:</b> {{ recipe.category }}</p>
 <p><b>Время приготовления:</b> {{ recipe.cooking_time }} мин.</p>
+{% if recipe.image %}
 <a><img src="{{ recipe.image.url }}" alt="{{ recipe.dish_name }}"></a>
+{% else %}
+    <p>No image available</p>
+{% endif %}
 <h3> {{ recipe.description }} </h3>
 <p><b>Ингредиенты:</b> {{ recipe.ingredients }} </p>
 <p><b>Шаги приготовления:</b> {{ recipe.cooking_steps }} </p>
 <p><b>Автор рецепта:</b> {{ recipe.author }} </p>
 <p><b>Рецепт создан:</b> {{ recipe.created_at }} </p>
-
+{% if user.is_authenticated %}
+<button style="background-color: #ffa000; padding: 10px;"><a style="text-decoration: none" href="{% url 'edit_recipe' recipe.id %}">Редактировать рецепт...</a></button>
+{% endif %}
 {% endblock %}

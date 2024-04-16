@@ -6,12 +6,23 @@
 </head>
 <body style="background-color: #FFFACD">
     <header style="display: flex; justify-content: space-between; align-items: center; background-color: #ffa000; color: black; padding: 10px; gap: 30px">
-        <h1>Сайт любимых рецептов</h1>
+        <h1><a style="text-decoration: none; color: inherit;" href="{% url 'index' %}">Сайт любимых рецептов</a></h1>
         <nav>
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 30px">
-                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
-                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'add_recipe' %}">Добавить рецепт</a></button>
-                <button style="background-color: #FFFACD, padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Выйти</a></button>
+                {% if user.is_authenticated %}
+
+                    <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
+                    <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'add_recipe' %}">Добавить рецепт</a></button>
+                    <p>Вы вошли под именем: {{ user.get_username }}</p>
+                <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+
+      <button type="submit" style="background-color: #FFFACD;">Выйти</button>
+   </form>
+                   {% else %}
+                    <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
+                     <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'login'%}">Войти</a></button>
+                   {% endif %}
         </div>
         </nav>
     </header>
