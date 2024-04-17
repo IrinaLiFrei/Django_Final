@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class RecipeForm(forms.Form):
@@ -22,3 +23,23 @@ class RecipeForm(forms.Form):
 
 class ImageForm(forms.Form):
     image = forms.ImageField(required=False)
+
+
+class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True, label='E-mail', widget=forms.TextInput(attrs={'class': 'email-input',
+                                                                                          'style': 'margin-bottom: 10px;', }))
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'user-input',
+                                                                                       'style': 'margin-bottom: 10px;', }))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'pass-input',
+                                                                                  'style': 'margin-bottom: 10px;', }))
+    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs={'class': 'pass-input',
+                                                                                  'style': 'margin-bottom: 15px;', }))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(max_length=254, label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'custom-username-input', 'placeholder': 'Введите имя пользователя'}))
+    password = forms.CharField(label='Пароль', strip=False, widget=forms.PasswordInput(attrs={'class': 'custom-password-input', 'placeholder': 'Введите пароль'}))

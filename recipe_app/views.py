@@ -1,7 +1,9 @@
 from datetime import datetime
-from django.shortcuts import render, get_object_or_404, redirect
+
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, get_object_or_404
 from .models import Recipe, Category
-from .forms import RecipeForm
+from .forms import RecipeForm, UserRegistrationForm, CustomAuthenticationForm
 
 
 def index(request):
@@ -53,7 +55,7 @@ def add_recipe(request):
             if 'image' in request.FILES:
                 recipe.image = request.FILES['image']
                 recipe.save()
-            return render(request,'recipe_app/recipe_detail.html', {'recipe': recipe, 'message': message})
+            return render(request, 'recipe_app/recipe_detail.html', {'recipe': recipe, 'message': message})
     else:
         form = RecipeForm()
         message = f'Добавьте свой любимый рецепт.'
@@ -91,3 +93,20 @@ def edit_recipe(request, recipe_id):
         form = RecipeForm(initial=initial_data)
     message = f'Внесите изменения в рецепт {recipe.dish_name}.'
     return render(request, 'recipe_app/edit_recipe.html', {'form': form, 'message': message})
+
+
+def register_request(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_staff = True
+            user.is_superuser = False
+            user.save()
+            return render(request, 'registration/login.html', {'form': form})
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+
+
