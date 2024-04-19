@@ -13,11 +13,10 @@
 
                     <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
                     <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'add_recipe' %}">Добавить рецепт</a></button>
-                    <p>Вы вошли под именем: {{ user.get_username }}</p>
                 <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
 
-      <button type="submit" style="background-color: #FFFACD;">Выйти</button>
+      <button style="background-color: #FFFACD; padding: 10px;" type="submit">Выйти</button>
    </form>
                    {% else %}
                     <button style="background-color: #FFFACD; padding: 10px;"><a style="text-decoration: none" href="{% url 'index' %}">Главная</a></button>
@@ -26,6 +25,9 @@
         </div>
         </nav>
     </header>
+    {% if user.is_authenticated %}
+    <p>Вы вошли под именем: {{ user.get_username }}</p>
+    {% endif %}
     <section style="display: flex; justify-content: flex-start; color: black; padding: 10px; gap: 50px">
          <div style="min-width: 250px;">
              <h2>Категории блюд:</h2>

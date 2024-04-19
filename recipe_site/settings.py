@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-ptf(^!plb2awcqv$lsd60p3m0n!miog_556aam6-@xlx_rwqtk'
 # SECRET_KEY = 'django-insecure-3(c3&u=dkuku89a5qr%w7--%%hq^@@7h18a$_3soej5%i)l$si'
 # SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -84,7 +84,6 @@ WSGI_APPLICATION = 'recipe_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': BASE_DIR / 'recipe_db.sqlite3',
     }
 }
@@ -138,8 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# LOGIN_REDIRECT_URL = reverse_lazy('index')
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 

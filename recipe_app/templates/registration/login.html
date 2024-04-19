@@ -15,25 +15,15 @@
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-  <h1>Авторизация</h1>
-<table>
 
-<tr>
-  <td><label for="id_custom_username">Имя пользователя:</label></td>
-  <td><input type="username" name="custom_username" id="id_custom_username" class="custom-username-field"></td>
-</tr>
-
-<tr>
-  <td><label for="id_custom_password">Пароль:</label></td>
-  <td><input type="password" name="custom_password" id="id_custom_password" class="custom-password-field"></td>
-</tr>
-</table>
-<br>
-<input type="submit" value="Войти" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
+<div>
+	<h1>Вход в систему</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{ form }}
+		<button class="btn btn-primary" type="submit">Войти</button>
+	</form>
+</div>
 
 <p><a href="{% url 'register' %}">Зарегистрироваться</a></p>
 <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>

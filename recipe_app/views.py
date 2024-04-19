@@ -1,9 +1,10 @@
 from datetime import datetime
 
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, get_object_or_404, redirect
+
 from .models import Recipe, Category
-from .forms import RecipeForm, UserRegistrationForm, CustomAuthenticationForm
+from .forms import RecipeForm, UserRegistrationForm, UserLoginForm
 
 
 def index(request):
@@ -103,10 +104,22 @@ def register_request(request):
             user.is_staff = True
             user.is_superuser = False
             user.save()
-            return render(request, 'registration/login.html', {'form': form})
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
 
 
-
+def login_request(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+    else:
+        form = UserLoginForm()
+    return render(request, 'registration/login.html', {'form': form})
